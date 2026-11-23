@@ -1,0 +1,5 @@
+﻿[
+  { "file": "Классическое фентези\\Варвар-войн.docx", "mode": "text",
+    "find": "<w:t xml:space=\"preserve\"> 4</w:t>",
+    "repl": "<w:t xml:space=\"preserve\"> 3</w:t>" }
+]

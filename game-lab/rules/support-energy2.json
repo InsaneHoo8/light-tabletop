@@ -1,0 +1,5 @@
+﻿[
+  { "file": "Земля 404\\Алкаш-колдун Боря Заливной.docx", "mode": "text",
+    "find": "<w:t xml:space=\"preserve\"> 4, энергия 3</w:t>",
+    "repl": "<w:t xml:space=\"preserve\"> 4, энергия 5</w:t>" }
+]

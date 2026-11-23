@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Война за Сосиску — прототип боя</title>
+<link rel="stylesheet" href="arena.css">
+</head>
+<body>
+<header class="page-head">
+  <h1>Война за Сосиску</h1>
+  <p class="sub">Прототип ваших правил: вы и три бота, бой до последнего. Сосиска не подключена — сначала бой.</p>
+  <p class="sub">Клавиша H — помощь. S — состояние стола. R — повторить. Пробел — пропустить ход бота.</p>
+</header>
+
+<main>
+  <section class="now" aria-labelledby="now-h">
+    <h2 id="now-h">Сейчас</h2>
+    <p id="announce" role="status" aria-live="polite" aria-atomic="true">Нажмите N, чтобы начать бой.</p>
+  </section>
+
+  <section id="draft-section" aria-labelledby="draft-h" hidden>
+    <h2 id="draft-h">Драфт способностей</h2>
+    <p class="sub">Стрелки вверх и вниз — листать карты, Enter — взять. Цифры 1–9 берут карту из начала списка.</p>
+    <p id="draft-status"></p>
+    <div id="draft-list" class="draft-list"></div>
+  </section>
+
+  <section aria-labelledby="acts-h">
+    <h2 id="acts-h">Ваши действия</h2>
+    <p id="turn-info">Бой не начат.</p>
+    <div id="actions" class="actions"></div>
+    <div id="options" class="options" aria-live="off"></div>
+    <p class="gate" id="gate-hint"></p>
+  </section>
+
+  <section aria-labelledby="table-h">
+    <h2 id="table-h">Стол</h2>
+    <table id="table">
+      <caption>Здоровье, менталка и энергия всех участников.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Боец</th>
+          <th scope="col">Мир</th>
+          <th scope="col">Класс</th>
+          <th scope="col">Здоровье</th>
+          <th scope="col">Менталка</th>
+          <th scope="col">Энергия</th>
+          <th scope="col">Артефактов</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="log-h">
+    <h2 id="log-h">Журнал боя</h2>
+    <p class="sub">Только для чтения: можно ходить по нему стрелками диктора.</p>
+    <ol id="log" class="log"></ol>
+  </section>
+
+  <section aria-labelledby="set-h">
+    <h2 id="set-h">Настройки</h2>
+    <fieldset class="startmode">
+      <legend>Артефакты на старте</legend>
+      <p><label><input type="radio" name="startmode" value="none"> Без стартовых карт</label></p>
+      <p><label><input type="radio" name="startmode" value="equal"> Всем по одной</label></p>
+      <p><label><input type="radio" name="startmode" value="position" checked> По месту: первый без карт, последний с двумя</label></p>
+    </fieldset>
+    <fieldset class="mental">
+      <legend>Менталка у всех</legend>
+      <p><label><input type="radio" name="mental" value="0"> Как в черновиках: у восьми ноль</label></p>
+      <p><label><input type="radio" name="mental" value="3"> Не меньше трёх</label></p>
+      <p><label><input type="radio" name="mental" value="4" checked> Не меньше четырёх</label></p>
+    </fieldset>
+    <fieldset class="exchange">
+      <legend>Обмен артефакта даёт</legend>
+      <p><label><input type="radio" name="exchange" value="rule" checked> По правилу карты: карты энергии дают здоровье, остальные энергию</label></p>
+      <p><label><input type="radio" name="exchange" value="mana"> Всё в энергию</label></p>
+      <p><label><input type="radio" name="exchange" value="hp"> Всё в здоровье</label></p>
+    </fieldset>
+    <p><label><input type="checkbox" id="opt-draft"> Драфт способностей из общего пула (эксперимент)</label></p>
+    <p><label><input type="checkbox" id="opt-sound"> Короткие звуковые сигналы (М)</label></p>
+    <p><label><input type="checkbox" id="opt-tts"> Озвучивать через браузер — только если НЕ используете экранный диктор</label></p>
+    <p class="fs">Размер текста:
+      <button type="button" id="fs-down">Меньше (минус)</button>
+      <button type="button" id="fs-up">Больше (плюс)</button>
+    </p>
+  </section>
+
+  <section id="help" aria-labelledby="help-h">
+    <h2 id="help-h" tabindex="-1">Как играть и что проверять</h2>
+    <p>Каждый бой — один персонаж из ваших набросков. Вы первый, дальше три бота по кругу. Бой идёт до последнего выжившего.</p>
+    <h3>Клавиши</h3>
+    <ul>
+      <li>Цифры 1–6 — действия. Если действие требует выбора, следом цифры 1–N выбирают цель, способность или артефакт.</li>
+      <li>S — состояние стола: здоровье, менталка, энергия, рука.</li>
+      <li>R — повторить последнее сообщение.</li>
+      <li>Пробел — дать ход текущему боту.</li>
+      <li>U — отменить ваш последний ход.</li>
+      <li>N — новый бой.</li>
+      <li>M — звуковые сигналы. Плюс и минус — размер текста.</li>
+      <li>H — этот раздел. Escape — вернуться к действиям или отменить выбор.</li>
+    </ul>
+    <p>Клавиши привязаны к физическому расположению, поэтому на русской раскладке работают на тех же кнопках, что дают Ы, Р, К, Г, Т, Ь.</p>
+    <h3>Что имеет смысл послушать</h3>
+    <ul>
+      <li>Понятно ли из сообщения, кто кого ударил и сколько осталось, без переспроса.</li>
+      <li>Не приходится ли всё время жать S, чтобы вспомнить, кто ещё жив.</li>
+      <li>Удобно ли, что боты ходят по Пробелу, или хочется, чтобы они шли сами.</li>
+      <li>Понятно ли, почему действие недоступно.</li>
+      <li>Не раздражает ли длина сообщений к третьему кругу.</li>
+    </ul>
+    <h3>Что здесь упрощено против набросков</h3>
+    <ul>
+      <li>Диапазоны урона 2–4 заменены на 3.</li>
+      <li>«Иллюзия боли» не заставляет врага бить своего — просто пропуск хода.</li>
+      <li>Цены способностей, не указанные в набросках, проставлены по единице.</li>
+      <li>Все двенадцать артефактов ваши: фэнтези, киберпанк, космос и Земля 404.</li>
+      <li>Энергия Люсе, Григорию и Боре назначена по три — в набросках её нет.</li>
+      <li>Менталка есть у всех: не меньше четырёх, у Вора шесть. Значит артефакты чужих миров доступны каждому. Порог меняется в настройках.</li>
+    </ul>
+  </section>
+</main>
+
+<noscript><p>Для игры нужен JavaScript.</p></noscript>
+
+<script src="game-data.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

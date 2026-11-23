@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тихая гавань — демо-прототип настольной игры</title>
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<header class="page-head">
+  <h1>Тихая гавань</h1>
+  <p class="sub">Демо-прототип. Правила здесь игрушечные: проверяется способ играть, а не баланс.</p>
+  <p class="sub" id="global-hint">Клавиша H — помощь. Клавиша S — полное состояние партии. R — повторить последнее сообщение.</p>
+</header>
+
+<main>
+  <section class="now" aria-labelledby="now-h">
+    <h2 id="now-h">Сейчас</h2>
+    <p id="announce" role="status" aria-live="polite" aria-atomic="true">Начинаем. Нажмите N, чтобы начать партию.</p>
+  </section>
+
+  <section aria-labelledby="acts-h">
+    <h2 id="acts-h">Действия</h2>
+    <p id="turn-info">Партия не начата.</p>
+    <div id="actions" class="actions"></div>
+    <p class="gate" id="gate-hint"></p>
+  </section>
+
+  <section aria-labelledby="score-h">
+    <h2 id="score-h">Счёт партии</h2>
+    <table id="score">
+      <caption>Очки и ресурсы. До победы — 8 очков.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Игрок</th>
+          <th scope="col">Очки</th>
+          <th scope="col">Доски</th>
+          <th scope="col">Металл</th>
+          <th scope="col">Еда</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Вы</th>
+          <td id="you-points">0</td>
+          <td id="you-wood">0</td>
+          <td id="you-metal">0</td>
+          <td id="you-food">0</td>
+        </tr>
+        <tr>
+          <th scope="row">Соперник</th>
+          <td id="bot-points">0</td>
+          <td id="bot-wood">0</td>
+          <td id="bot-metal">0</td>
+          <td id="bot-food">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="log-h">
+    <h2 id="log-h">Журнал партии</h2>
+    <p class="sub">Журнал только для чтения — можно ходить по нему стрелками диктора, ничего не сломается.</p>
+    <ol id="log" class="log"></ol>
+  </section>
+
+  <section aria-labelledby="set-h">
+    <h2 id="set-h">Настройки</h2>
+    <p>
+      <label><input type="checkbox" id="opt-gate" checked> Ждать Пробела перед ходом соперника</label>
+    </p>
+    <p>
+      <label><input type="checkbox" id="opt-sound"> Короткие звуковые сигналы (М)</label>
+    </p>
+    <p>
+      <label><input type="checkbox" id="opt-tts"> Озвучивать через браузер — только если НЕ используете экранный диктор</label>
+    </p>
+    <p class="fs">
+      Размер текста:
+      <button type="button" id="fs-down">Меньше (минус)</button>
+      <button type="button" id="fs-up">Больше (плюс)</button>
+    </p>
+  </section>
+
+  <section id="help" aria-labelledby="help-h">
+    <h2 id="help-h" tabindex="-1">Как играть и что проверять</h2>
+    <p>Это не прототип ваших правил. Это каркас, который показывает, как может звучать партия: два игрока, ресурсы, постройки, кубик, счёт до 8.</p>
+    <h3>Клавиши</h3>
+    <ul>
+      <li>Цифры 1–5 — действия. На цифровой клавиатуре тоже работают.</li>
+      <li>S — полное состояние партии одной фразой.</li>
+      <li>R — повторить последнее сообщение.</li>
+      <li>Пробел — дать ход сопернику.</li>
+      <li>U — отменить ваш ход вместе с ответом соперника.</li>
+      <li>N — новая партия.</li>
+      <li>M — звуковые сигналы.</li>
+      <li>Плюс и минус — размер текста.</li>
+      <li>H — перейти к этому разделу. Escape — вернуться к действиям.</li>
+    </ul>
+    <p>Клавиши привязаны к физическому расположению, поэтому работают на любой раскладке: на русской это те же клавиши, что дают Ы, Р, К, Г, Т, Ь.</p>
+    <h3>Что имеет смысл послушать</h3>
+    <ul>
+      <li>Хватает ли одного сообщения на ход, или не хватает подробностей.</li>
+      <li>Не обрывает ли диктор сам себя: сообщение приходит целиком, одним куском.</li>
+      <li>Понятно ли из фразы, что произошло и чей ход, без переспроса.</li>
+      <li>Удобно ли, что соперник ждёт Пробела, или это лишнее движение.</li>
+      <li>Нужен ли журнал вслух, или достаточно клавиши S.</li>
+      <li>Понятна ли причина отказа, когда действие недоступно.</li>
+    </ul>
+    <p>Всё, что окажется лишним или недостающим, — это и есть результат демо. Правила вашей игры подключаются к этому каркасу отдельным файлом, без переписывания интерфейса.</p>
+  </section>
+</main>
+
+<noscript><p>Для игры нужен JavaScript: без него кнопки не работают.</p></noscript>
+
+<script src="engine.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>

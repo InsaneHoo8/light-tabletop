@@ -1,0 +1,19 @@
+# Служебные папки песочницы, к игре отношения не имеют
+a11y-probe/
+plugins/
+
+# Временные папки сборщиков
+game-lab/tmp-*/
+game-lab/tmp-check*/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Системное
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Временные файлы Word
+~$*.docx

@@ -1,0 +1,191 @@
+:root {
+  --bg: #ffffff;
+  --fg: #14161a;
+  --muted: #4a5058;
+  --panel: #f2f4f7;
+  --border: #6b7280;
+  --accent: #0b4da2;
+  --focus: #b3261e;
+  --maxw: 48rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111418;
+    --fg: #f2f4f7;
+    --muted: #b9c0c9;
+    --panel: #1c2128;
+    --border: #8b95a3;
+    --accent: #8ab4f8;
+    --focus: #ffb4a9;
+  }
+}
+
+html {
+  font-size: 21px;
+}
+
+body {
+  margin: 0 auto;
+  padding: 1rem 1.25rem 4rem;
+  max-width: var(--maxw);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  text-size-adjust: 100%;
+}
+
+h1 {
+  font-size: 1.7rem;
+  line-height: 1.2;
+  margin: 0.5rem 0 0.25rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 1.75rem 0 0.5rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.25rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 1.25rem 0 0.35rem;
+}
+
+p,
+li {
+  max-width: 42rem;
+}
+
+.sub {
+  color: var(--muted);
+}
+
+/* Главное сообщение: видно и слышно одновременно. */
+.now {
+  border: 3px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.25rem 1rem 1rem;
+  margin-top: 1rem;
+  background: var(--panel);
+}
+
+.now h2 {
+  border-bottom: none;
+  margin-top: 0.75rem;
+}
+
+#announce {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  min-height: 3.2em;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+button {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--fg);
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 0.45rem;
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 3px;
+}
+
+#log {
+  padding-left: 2.5rem;
+}
+
+#log li {
+  margin: 0.35rem 0;
+}
+
+.log-round {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+caption {
+  text-align: left;
+  color: var(--muted);
+  padding-bottom: 0.4rem;
+}
+
+th,
+td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+thead th {
+  background: var(--panel);
+}
+
+.gate {
+  font-weight: 600;
+  min-height: 1.6em;
+}
+
+.fs button {
+  display: inline-block;
+}
+
+label {
+  display: inline-block;
+  padding: 0.15rem 0;
+}
+
+#help {
+  margin-top: 2rem;
+  border-top: 2px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  button:active {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .now,
+  button,
+  th,
+  td {
+    border-color: CanvasText;
+  }
+}

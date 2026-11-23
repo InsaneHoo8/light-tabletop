@@ -1,0 +1,12 @@
+# Нормализация переводов строк
+* text=auto
+
+# Скрипты PowerShell работают в Windows-переводах строк
+*.ps1 text eol=crlf
+
+# Двоичные файлы
+*.docx binary
+*.xlsx binary
+*.zip binary
+*.png binary
+*.jpg binary

@@ -378,7 +378,7 @@ lines.push('Бот играет жадно и близоруко: он оцен�
 
 fs.mkdirSync(MD_DIR, { recursive: true });
 const safeStamp = stamp.replace(/[.:]/g, '-').replace(/\s+/g, ' ');
-const patchFolder = 'Патч ' + PATCH;
+const patchFolder = ESSENCE.startsWith('Эксперимент') ? 'Эксперименты' : 'Патч ' + PATCH;
 fs.mkdirSync(path.join(MD_DIR, patchFolder), { recursive: true });
 const mdPath = path.join(MD_DIR, patchFolder, `${ESSENCE} — Симуляция ${PATCH} ${safeStamp}.md`);
 fs.writeFileSync(mdPath, lines.join('\n') + '\n', 'utf8');

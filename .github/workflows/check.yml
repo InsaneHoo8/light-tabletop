@@ -1,0 +1,40 @@
+name: Проверки проекта
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Движок, документы и баланс
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Поставить Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Проверки движка
+        run: node game-lab/arena/tools/self-check.mjs
+
+      - name: Сверка баланса с эталоном
+        run: node game-lab/tools/balance-check.mjs
+
+      - name: Документы собраны без ошибок
+        run: |
+          mkdir -p /tmp/docs
+          node game-lab/tools/gen-prompt-docs.mjs
+          node game-lab/tools/gen-rules-doc.mjs
+          node game-lab/tools/gen-core-docs.mjs
+
+      - name: История версий соответствует реестру
+        run: |
+          node game-lab/tools/make-changelog.mjs
+          git diff --exit-code CHANGELOG.md

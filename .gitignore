@@ -24,3 +24,12 @@ game-lab/docs/Симуляция игр ботяр/
 
 # Архивы резервных копий
 backup-*.zip
+
+# Служебные файлы песочницы, к игре не относятся
+chrome-mem-*
+scan-*.ps1
+scan-appdata.ps1
+proxy-test.mjs
+appdata-sizes.json
+c-sizes.json
+start-dsh.bat

@@ -22,7 +22,6 @@
 
 import fs from 'node:fs';
 
-const GIT = null;
 const CARDS = 'game-lab/arena/cards.js';
 
 const file = process.argv[2];
@@ -37,11 +36,6 @@ const spec = JSON.parse(fs.readFileSync(file, 'utf8'));
 let src = fs.readFileSync(CARDS, 'utf8').replace(/\r\n/g, '\n');
 const changes = [];
 
-function sectionBounds(marker) {
-  const at = src.indexOf(marker);
-  if (at < 0) throw new Error('не найдено в данных: ' + marker);
-  return at;
-}
 
 function replaceInCard(id, transform, label) {
   const at = src.indexOf("id: '" + id + "'");

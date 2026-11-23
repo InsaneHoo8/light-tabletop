@@ -4,7 +4,12 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
-const GIT = 'C:\\Program Files\\Git\\cmd\\git.exe';
+import { existsSync } from 'node:fs';
+
+const GIT = [
+  'C:\\Program Files\\Git\\cmd\\git.exe',
+  'C:\\Program Files (x86)\\Git\\cmd\\git.exe'
+].find(existsSync) || 'git';
 
 function run(args, quiet) {
   const res = execFileSync(GIT, args, { encoding: 'utf8', stdio: quiet ? 'pipe' : 'inherit' });
@@ -35,6 +40,15 @@ try {
 
 if (!balanceOk) {
   console.log('публикация остановлена: сначала обновите эталон или проверьте правку');
+  process.exit(1);
+}
+
+/* сверка документов с данными */
+console.log('--- сверка документов');
+try {
+  execFileSync('node', ['game-lab/tools/docs-consistency.mjs'], { stdio: 'inherit' });
+} catch (e) {
+  console.log('публикация остановлена: документы разошлись с данными');
   process.exit(1);
 }
 

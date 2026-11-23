@@ -15,6 +15,8 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+game-lab/docs/_verify/
+
 # Временные файлы Word
 ~$*.docx
 
